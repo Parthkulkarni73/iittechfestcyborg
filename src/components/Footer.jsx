@@ -55,10 +55,10 @@ export default function Footer() {
           {/* Social Icons */}
           <div className="flex gap-4">
             {[
-              { icon: GithubIcon, href: "https://github.com", name: "GitHub" },
+              { icon: GithubIcon, href: "https://github.com/Parthkulkarni73", name: "GitHub" },
               { icon: TwitterIcon, href: "https://twitter.com", name: "Twitter" },
-              { icon: LinkedinIcon, href: "https://linkedin.com", name: "LinkedIn" },
-              { icon: MessageSquare, href: "https://discord.com", name: "Discord" }
+              { icon: LinkedinIcon, href: "https://www.linkedin.com/in/kulkarni-parth-3baa52302/", name: "LinkedIn" },
+              { icon: MessageSquare, href: "https://discord.com/users/parthkulkarni0784", name: "Discord" }
             ].map((social) => {
               const Icon = social.icon;
               return (
