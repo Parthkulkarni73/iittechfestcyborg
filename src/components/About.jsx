@@ -108,7 +108,7 @@ export default function About() {
         viewport={{ once: true, margin: "-100px" }}
         className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-20"
       >
-        {cards.map((card, idx) => {
+        {cards.map((card) => {
           const Icon = card.icon;
           return (
             <motion.div
