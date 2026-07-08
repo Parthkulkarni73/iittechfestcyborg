@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
-import { Terminal, Shield, ArrowUpRight, Activity } from "lucide-react";
+import { Terminal, Shield, ArrowUpRight } from "lucide-react";
 import cyborgHero from "../assets/cyborg_hero.png";
 
 const typingPhrases = [
@@ -20,8 +20,10 @@ export default function Hero() {
   // Live System Metrics state
   const [metrics, setMetrics] = useState({
     cpu: 42,
+    memory: 78,
     temp: 37.0,
-    energy: 98,
+    power: 98,
+    latency: 12,
     threat: "LOW",
     link: "STABLE",
     core: "ONLINE"
@@ -85,9 +87,11 @@ export default function Hero() {
     const interval = setInterval(() => {
       setMetrics((prev) => ({
         ...prev,
-        cpu: Math.floor(Math.random() * 12) + 38, // Fluctuates between 38% and 50%
-        temp: parseFloat((Math.random() * 1.5 + 36.2).toFixed(1)), // Fluctuates between 36.2 and 37.7
-        energy: Math.random() > 0.85 ? Math.floor(Math.random() * 2) + 97 : prev.energy // Occasionally switches 97-99
+        cpu: Math.floor(Math.random() * 8) + 40, // 40% to 47%
+        memory: Math.floor(Math.random() * 3) + 77, // 77% to 79%
+        temp: parseFloat((Math.random() * 1.2 + 36.4).toFixed(1)), // 36.4C to 37.5C
+        power: Math.random() > 0.85 ? Math.floor(Math.random() * 2) + 97 : prev.power, // 97-99%
+        latency: Math.floor(Math.random() * 5) + 10 // 10ms to 14ms
       }));
     }, 2000);
 
@@ -206,44 +210,74 @@ export default function Hero() {
         {/* Right Cyborg/Illustration Area & Floating Live System Panel */}
         <div className="lg:col-span-5 relative flex justify-center items-center h-[450px] lg:h-[600px] z-15">
           
-          {/* FLOATING LIVE SYSTEM PANEL */}
+          {/* FLOATING LIVE SYSTEM TERMINAL WINDOW */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8, x: -30 }}
             animate={{ opacity: 1, scale: 1, x: 0 }}
             transition={{ delay: 0.8, type: "spring", stiffness: 120 }}
-            className="absolute left-[-20px] top-[15px] lg:left-[-60px] lg:top-[60px] z-30 glass-panel p-4 rounded border border-cyber-cyan/35 w-[200px] font-mono text-[10px] space-y-2 shadow-[0_10px_25px_rgba(0,0,0,0.5)] select-none text-left"
+            className="absolute left-[-20px] top-[15px] lg:left-[-60px] lg:top-[60px] z-30 bg-black/85 border-2 border-cyber-cyan p-4 rounded w-[230px] font-mono text-[10px] shadow-[0_0_25px_rgba(0,245,255,0.15)] select-none text-left"
           >
-            <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-cyber-cyan"></div>
-            <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-cyber-cyan"></div>
-
-            <div className="flex items-center gap-1.5 text-cyber-cyan font-bold tracking-wider uppercase border-b border-cyber-cyan/15 pb-1">
-              <Activity className="w-3.5 h-3.5 animate-pulse" />
-              <span>SYSTEM STATUS</span>
+            {/* Terminal Window Header Controls */}
+            <div className="flex justify-between items-center border-b border-cyber-cyan/30 pb-2 mb-2">
+              <div className="flex gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-red-500/80"></span>
+                <span className="w-2 h-2 rounded-full bg-yellow-500/80"></span>
+                <span className="w-2 h-2 rounded-full bg-green-500/80"></span>
+              </div>
+              <span className="text-[8px] text-cyber-cyan/60 uppercase">terminal_status</span>
             </div>
 
-            <div className="flex justify-between items-center text-gray-400">
-              <span>Neural Core:</span>
-              <span className="text-cyber-cyan font-bold text-glow-cyan">{metrics.core}</span>
+            <div className="text-cyber-cyan/80 font-bold border-b border-cyber-cyan/15 pb-1 text-center text-glow-cyan">
+              SYSTEM STATUS
             </div>
-            <div className="flex justify-between items-center text-gray-400">
-              <span>Quantum Link:</span>
-              <span className="text-cyber-green font-bold text-glow-green">{metrics.link}</span>
+            
+            <div className="text-white/60 py-1 border-b border-cyber-cyan/15 mb-2 flex items-center gap-1">
+              <span>&gt;</span>
+              <span className="text-[9px]">systemctl status neural-core</span>
+              <span className="w-1 h-3 bg-cyber-cyan animate-terminal-blink" />
             </div>
-            <div className="flex justify-between items-center text-gray-400">
-              <span>Energy level:</span>
-              <span className="text-white font-bold">{metrics.energy}%</span>
-            </div>
-            <div className="flex justify-between items-center text-gray-400">
-              <span>Threat Level:</span>
-              <span className="text-white font-bold">{metrics.threat}</span>
-            </div>
-            <div className="flex justify-between items-center text-gray-400">
-              <span>CPU Load:</span>
-              <span className="text-cyber-cyan font-bold">{metrics.cpu}%</span>
-            </div>
-            <div className="flex justify-between items-center text-gray-400">
-              <span>Core Temp:</span>
-              <span className="text-white font-bold">{metrics.temp}°C</span>
+
+            <div className="space-y-1 text-cyber-cyan">
+              <div className="flex justify-between items-center">
+                <span>Neural Core</span>
+                <span className="text-white font-bold opacity-30">....</span>
+                <span className="text-cyber-cyan font-bold text-glow-cyan">{metrics.core}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span>Quantum Link</span>
+                <span className="text-white font-bold opacity-30">...</span>
+                <span className="text-cyber-green font-bold text-glow-green">{metrics.link}</span>
+              </div>
+              <div className="flex justify-between items-center text-gray-400">
+                <span>Threat Level</span>
+                <span className="text-white font-bold opacity-20">...</span>
+                <span className="text-white font-bold">{metrics.threat}</span>
+              </div>
+              <div className="flex justify-between items-center text-gray-400">
+                <span>CPU Usage</span>
+                <span className="text-white font-bold opacity-20">......</span>
+                <span className="text-white font-bold">{metrics.cpu}%</span>
+              </div>
+              <div className="flex justify-between items-center text-gray-400">
+                <span>Memory</span>
+                <span className="text-white font-bold opacity-20">.........</span>
+                <span className="text-white font-bold">{metrics.memory}%</span>
+              </div>
+              <div className="flex justify-between items-center text-gray-400">
+                <span>Temperature</span>
+                <span className="text-white font-bold opacity-20">....</span>
+                <span className="text-white font-bold">{metrics.temp}°C</span>
+              </div>
+              <div className="flex justify-between items-center text-gray-400">
+                <span>Power</span>
+                <span className="text-white font-bold opacity-20">..........</span>
+                <span className="text-white font-bold">{metrics.power}%</span>
+              </div>
+              <div className="flex justify-between items-center text-gray-400">
+                <span>Latency</span>
+                <span className="text-white font-bold opacity-20">........</span>
+                <span className="text-white font-bold">{metrics.latency}ms</span>
+              </div>
             </div>
           </motion.div>
 

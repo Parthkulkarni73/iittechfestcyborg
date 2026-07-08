@@ -159,7 +159,7 @@ export default function App() {
   };
 
   return (
-    <div className="relative min-h-screen bg-cyber-bg text-white selection:bg-cyber-cyan/30 selection:text-white">
+    <div className="relative min-h-screen bg-cyber-bg text-white selection:bg-cyber-cyan/30 selection:text-white overflow-x-hidden w-full max-w-full">
       {/* Cinematic Startup Loader */}
       {booting && <BootSequence onComplete={handleBootComplete} />}
 

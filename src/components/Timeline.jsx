@@ -77,23 +77,49 @@ export default function Timeline() {
       <div className="relative min-h-[840px]">
         
         {/* DNA SVG double helix vertical pathway (Desktop: centered, Mobile: left aligned) */}
-        <div className="absolute left-0 md:left-1/2 md:-translate-x-1/2 top-0 bottom-0 w-[100px] z-10 pointer-events-none">
+        <motion.div 
+          style={{ perspective: 400 }}
+          animate={{ 
+            rotateY: 360,
+            y: [0, -8, 0]
+          }}
+          transition={{ 
+            rotateY: { duration: 15, repeat: Infinity, ease: "linear" },
+            y: { duration: 4, repeat: Infinity, ease: "easeInOut" }
+          }}
+          className="absolute left-0 md:left-1/2 md:-translate-x-1/2 top-0 bottom-0 w-[100px] z-10 pointer-events-none"
+        >
           <svg viewBox={`0 0 100 ${height}`} className="w-full h-full">
             {/* Strand 1 (Sine wave) */}
-            <path
+            <motion.path
               d={`M 50,0 Q 75,100 50,200 T 50,400 T 50,600 T 50,800 T 50,${height}`}
               fill="none"
               stroke="var(--cyber-cyan)"
-              strokeWidth="1.5"
-              className="opacity-45"
+              animate={{ 
+                strokeWidth: [1.5, 2.5, 1.5],
+                opacity: [0.45, 0.85, 0.45] 
+              }}
+              transition={{ 
+                duration: 3, 
+                repeat: Infinity, 
+                ease: "easeInOut" 
+              }}
             />
             {/* Strand 2 (Offset Sine wave) */}
-            <path
+            <motion.path
               d={`M 50,0 Q 25,100 50,200 T 50,400 T 50,600 T 50,800 T 50,${height}`}
               fill="none"
               stroke="var(--cyber-purple)"
-              strokeWidth="1.5"
-              className="opacity-45"
+              animate={{ 
+                strokeWidth: [1.5, 2.5, 1.5],
+                opacity: [0.45, 0.85, 0.45] 
+              }}
+              transition={{ 
+                duration: 3, 
+                repeat: Infinity, 
+                ease: "easeInOut",
+                delay: 1.5
+              }}
             />
             
             {/* Connecting DNA Rungs */}
@@ -104,12 +130,37 @@ export default function Timeline() {
                 y1={rung.y}
                 x2={rung.x2}
                 y2={rung.y}
-                stroke="rgba(0, 245, 255, 0.2)"
+                stroke="rgba(0, 245, 255, 0.25)"
                 strokeWidth="1"
               />
             ))}
+
+            {/* Glowing DNA Particles Dust */}
+            {Array.from({ length: 14 }).map((_, i) => {
+              const y = (i * height) / 14 + 30;
+              const x = 50 + Math.sin(i * 1.8) * 35;
+              return (
+                <motion.circle
+                  key={i}
+                  cx={x}
+                  cy={y}
+                  r={Math.random() * 2 + 1}
+                  fill={i % 2 === 0 ? "var(--cyber-cyan)" : "var(--cyber-purple)"}
+                  animate={{ 
+                    opacity: [0.2, 0.9, 0.2],
+                    scale: [0.8, 1.35, 0.8],
+                    x: [0, (Math.random() - 0.5) * 12, 0]
+                  }}
+                  transition={{ 
+                    duration: 3 + Math.random() * 3, 
+                    repeat: Infinity, 
+                    ease: "easeInOut" 
+                  }}
+                />
+              );
+            })}
           </svg>
-        </div>
+        </motion.div>
 
         <div className="space-y-16 md:space-y-0 relative">
           {timelineEvents.map((event, index) => {

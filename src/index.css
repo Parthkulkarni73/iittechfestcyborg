@@ -46,12 +46,21 @@ html {
   color: #f3f4f6;
   overflow-x: hidden;
   font-family: "Rajdhani", sans-serif;
+  max-width: 100vw;
 }
 
 body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+#root {
+  max-width: 100vw;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 /* CSS Variables for Dynamic Naming overrides and Dev Mode Theme swaps */
@@ -249,5 +258,39 @@ main {
 body.footer-active main {
   opacity: 0.55;
   filter: blur(0.5px);
+}
+
+/* Card pulse neon glow */
+@keyframes card-neon-pulse {
+  0% { box-shadow: 0 0 10px rgba(0, 245, 255, 0.08), inset 0 0 5px rgba(0, 245, 255, 0.04); }
+  100% { box-shadow: 0 0 22px rgba(0, 245, 255, 0.28), inset 0 0 10px rgba(0, 245, 255, 0.14); }
+}
+.animate-neon-pulse-cyan {
+  animation: card-neon-pulse 3s infinite alternate ease-in-out;
+}
+
+@keyframes card-neon-pulse-purple {
+  0% { box-shadow: 0 0 10px rgba(123, 47, 247, 0.08), inset 0 0 5px rgba(123, 47, 247, 0.04); }
+  100% { box-shadow: 0 0 22px rgba(123, 47, 247, 0.28), inset 0 0 10px rgba(123, 47, 247, 0.14); }
+}
+.animate-neon-pulse-purple {
+  animation: card-neon-pulse-purple 3s infinite alternate ease-in-out;
+}
+
+@keyframes card-neon-pulse-green {
+  0% { box-shadow: 0 0 10px rgba(0, 255, 156, 0.08), inset 0 0 5px rgba(0, 255, 156, 0.04); }
+  100% { box-shadow: 0 0 22px rgba(0, 255, 156, 0.28), inset 0 0 10px rgba(0, 255, 156, 0.14); }
+}
+.animate-neon-pulse-green {
+  animation: card-neon-pulse-green 3s infinite alternate ease-in-out;
+}
+
+/* Blinking terminal cursor */
+@keyframes terminal-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.animate-terminal-blink {
+  animation: terminal-blink 1s step-end infinite;
 }
 

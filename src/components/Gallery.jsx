@@ -12,7 +12,7 @@ const galleryItems = [
     desc: "Active sub-zero calculation core driving multi-threaded deep neural learning algorithms.",
     img: imgCore,
     color: "cyan",
-    borderClass: "hover:border-cyber-cyan/40 hover:shadow-cyber-cyan/15"
+    borderClass: "border-cyber-cyan/25 animate-neon-pulse-cyan hover:border-cyber-cyan/70 hover:shadow-cyber-cyan/30"
   },
   {
     title: "Holographic HUD Diagnostics",
@@ -20,7 +20,7 @@ const galleryItems = [
     desc: "Real-time diagnostic floating dashboard display tracking synaptic synchronization rates.",
     img: imgHud,
     color: "purple",
-    borderClass: "hover:border-cyber-purple/40 hover:shadow-cyber-purple/15"
+    borderClass: "border-cyber-purple/25 animate-neon-pulse-purple hover:border-cyber-purple/70 hover:shadow-cyber-purple/30"
   },
   {
     title: "Biometric Telemetry",
@@ -28,7 +28,7 @@ const galleryItems = [
     desc: "Multi-layered facial scanning and sub-dermal mesh node tracking mapping credentials.",
     img: imgBio,
     color: "green",
-    borderClass: "hover:border-cyber-green/40 hover:shadow-cyber-green/15"
+    borderClass: "border-cyber-green/25 animate-neon-pulse-green hover:border-cyber-green/70 hover:shadow-cyber-green/30"
   },
   {
     title: "Cybernetic Integration",
@@ -36,7 +36,7 @@ const galleryItems = [
     desc: "Sleek carbon-fiber prosthetic integration featuring tactile micro-sensory transmitters.",
     img: imgCyberware,
     color: "cyan",
-    borderClass: "hover:border-cyber-cyan/40 hover:shadow-cyber-cyan/15"
+    borderClass: "border-cyber-cyan/25 animate-neon-pulse-cyan hover:border-cyber-cyan/70 hover:shadow-cyber-cyan/30"
   }
 ];
 
@@ -82,7 +82,7 @@ export default function Gallery() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ delay: index * 0.15, duration: 0.6 }}
-            className={`glass-panel p-4 rounded-lg border border-white/5 ${item.borderClass} transition-all duration-500 overflow-hidden group flex flex-col`}
+            className={`glass-panel p-4 rounded-lg border-2 ${item.borderClass} transition-all duration-500 overflow-hidden group flex flex-col`}
           >
             {/* Image Wrapper */}
             <div className="relative aspect-video rounded overflow-hidden mb-6 bg-cyber-bg">
