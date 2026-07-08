@@ -70,7 +70,7 @@ export default function About() {
           viewport={{ once: true, margin: "-100px" }}
           className="font-heading text-xs font-bold tracking-widest text-cyber-cyan uppercase mb-3 text-glow-cyan"
         >
-          COGNITIVE MATRIX
+          EVOLUTION CORES
         </motion.div>
         
         <motion.h2
@@ -80,7 +80,7 @@ export default function About() {
           transition={{ delay: 0.1 }}
           className="font-heading text-3xl md:text-5xl font-black text-white uppercase tracking-wider"
         >
-          COGNITIVE CORE SERVICES
+          EVOLUTION ANALYSIS
         </motion.h2>
         
         <motion.div
@@ -97,7 +97,7 @@ export default function About() {
           transition={{ delay: 0.2 }}
           className="font-body text-gray-400 text-lg max-w-xl mx-auto mt-4"
         >
-          Pioneering the boundary where cybernetics and neuro-computational power unite. Our core operations power tomorrow's cybernetic infrastructure.
+          Pioneering the boundary where biological neural matrices and computational silicon synaptics unite. We map operational metrics to secure next-gen evolution pathways.
         </motion.p>
       </div>
 

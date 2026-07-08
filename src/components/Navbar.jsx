@@ -3,12 +3,12 @@ import { Menu, X, Cpu } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
-  { name: "Home", href: "#home" },
-  { name: "About", href: "#about" },
-  { name: "Features", href: "#features" },
-  { name: "Timeline", href: "#timeline" },
-  { name: "Gallery", href: "#gallery" },
-  { name: "Contact", href: "#contact" },
+  { name: "Mission", href: "#home" },
+  { name: "Evolution Analysis", href: "#about" },
+  { name: "Technology", href: "#features" },
+  { name: "Neural Core", href: "#timeline" },
+  { name: "Command Center", href: "#gallery" },
+  { name: "Transmission", href: "#contact" },
 ];
 
 export default function Navbar() {

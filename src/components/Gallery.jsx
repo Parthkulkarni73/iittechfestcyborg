@@ -53,7 +53,7 @@ export default function Gallery() {
           viewport={{ once: true, margin: "-100px" }}
           className="font-heading text-xs font-bold tracking-widest text-cyber-cyan uppercase mb-3 text-glow-cyan"
         >
-          PROJECT ARCHIVES
+          SECURE ARCHIVES
         </motion.div>
         
         <motion.h2
@@ -63,7 +63,7 @@ export default function Gallery() {
           transition={{ delay: 0.1 }}
           className="font-heading text-3xl md:text-5xl font-black text-white uppercase tracking-wider"
         >
-          CORE LABORATORY GALLERY
+          COMMAND CENTER RECORDS
         </motion.h2>
         
         <motion.div

@@ -53,7 +53,7 @@ export default function Contact() {
             transition={{ delay: 0.1 }}
             className="font-heading text-3xl md:text-5xl font-black text-white uppercase tracking-wider mb-6"
           >
-            LAUNCH MISSION
+            COMS TRANSMISSION
           </motion.h2>
 
           <motion.p
@@ -63,7 +63,7 @@ export default function Contact() {
             transition={{ delay: 0.2 }}
             className="font-body text-gray-400 text-base leading-relaxed mb-8"
           >
-            Ready to enhance your digital infrastructure? Initiate secure contact. Our central intelligence node will review your coordinates and reply via holographic uplink.
+            Ready to establish a neural comms tunnel? Verify your parameters and dispatch. Our central intelligence node will review your coordinates and reply via holographic uplink.
           </motion.p>
 
           {/* Technical Connection Info Box */}
@@ -141,7 +141,7 @@ export default function Contact() {
                   {/* Email Input */}
                   <div className="text-left flex flex-col">
                     <label className="font-heading text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">
-                      COMMS LINK ADDRESS (EMAIL)
+                      SECURE CHANNEL (EMAIL)
                     </label>
                     <input
                       type="email"
@@ -158,7 +158,7 @@ export default function Contact() {
                   {/* Message Input */}
                   <div className="text-left flex flex-col">
                     <label className="font-heading text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">
-                      MISSION COGNITIVE DISPATCH
+                      MISSION DETAILS
                     </label>
                     <textarea
                       name="message"
@@ -186,7 +186,7 @@ export default function Contact() {
                     ) : (
                       <>
                         <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                        Launch Mission
+                        Transmit Mission
                       </>
                     )}
                   </button>

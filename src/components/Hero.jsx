@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
-import { Terminal, Shield, ArrowUpRight } from "lucide-react";
+import { Terminal, Shield, ArrowUpRight, Activity } from "lucide-react";
 import cyborgHero from "../assets/cyborg_hero.png";
 
 const typingPhrases = [
-  "Initializing Neural Core...",
-  "Establishing Secure Cybernetic Uplink...",
-  "Syncing Synaptic Pathways...",
+  "Initializing CYBORG X Core...",
+  "Establishing Secure Cognitive Uplink...",
+  "Syncing Neural Pathways...",
   "Calibrating Quantum Core...",
   "Interface Status: ONLINE"
 ];
@@ -16,6 +16,16 @@ export default function Hero() {
   const [phraseIndex, setPhraseIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
+
+  // Live System Metrics state
+  const [metrics, setMetrics] = useState({
+    cpu: 42,
+    temp: 37.0,
+    energy: 98,
+    threat: "LOW",
+    link: "STABLE",
+    core: "ONLINE"
+  });
 
   // Mouse Parallax values
   const mouseX = useMotionValue(0);
@@ -61,7 +71,6 @@ export default function Hero() {
     }
 
     if (!isDeleting && charIndex === currentPhrase.length) {
-      // Pause at full text
       timer = setTimeout(() => setIsDeleting(true), 2500);
     } else if (isDeleting && charIndex === 0) {
       setIsDeleting(false);
@@ -70,6 +79,20 @@ export default function Hero() {
 
     return () => clearTimeout(timer);
   }, [charIndex, isDeleting, phraseIndex]);
+
+  // Fluctuating system metrics simulator
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setMetrics((prev) => ({
+        ...prev,
+        cpu: Math.floor(Math.random() * 12) + 38, // Fluctuates between 38% and 50%
+        temp: parseFloat((Math.random() * 1.5 + 36.2).toFixed(1)), // Fluctuates between 36.2 and 37.7
+        energy: Math.random() > 0.85 ? Math.floor(Math.random() * 2) + 97 : prev.energy // Occasionally switches 97-99
+      }));
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleScrollToSection = (id) => {
     const el = document.getElementById(id);
@@ -86,6 +109,14 @@ export default function Hero() {
       id="home"
       className="relative min-h-screen flex items-center justify-center pt-24 overflow-hidden z-10 px-6 max-w-7xl mx-auto"
     >
+      {/* Horizontal sweeping HUD laser scanline */}
+      <motion.div
+        animate={{ y: ["0%", "100%", "0%"] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+        className="absolute left-0 right-0 h-[1.5px] bg-cyber-cyan/25 shadow-[0_0_10px_#00F5FF] pointer-events-none z-10"
+        style={{ top: 0 }}
+      />
+
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full relative">
         {/* Left Content */}
         <div className="lg:col-span-7 flex flex-col text-left z-20">
@@ -108,13 +139,22 @@ export default function Hero() {
             CYBORG <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyber-cyan via-cyber-purple to-cyber-cyan bg-[size:200%] animate-[grid-scroll_5s_linear_infinite] text-glow-cyan">X</span>
           </motion.h1>
 
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.22, ease: "easeOut" }}
+            className="font-heading text-lg md:text-2xl font-bold text-cyber-cyan uppercase tracking-widest mb-4"
+          >
+            "The Future of Human-AI Evolution"
+          </motion.h2>
+
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
-            className="text-lg md:text-xl font-body font-semibold tracking-wide text-gray-300 max-w-xl mb-4"
+            className="text-base md:text-lg font-body font-semibold tracking-wide text-gray-300 max-w-xl mb-4"
           >
-            Where Human Intelligence Meets Artificial Intelligence. Unlock the ultimate neural enhancement architecture built for next-generation cybernetic development.
+            Expanding humanity's cognitive bounds using next-generation cybernetic networks. Connect directly to the neural system core to monitor real-time cybernetic diagnostics.
           </motion.p>
 
           {/* Typing log screen */}
@@ -141,30 +181,72 @@ export default function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
-            className="flex flex-col sm:flex-row gap-4"
+            className="flex flex-col sm:flex-row gap-4 mb-8 lg:mb-0"
           >
             <button
-              onClick={() => handleScrollToSection("about")}
+              onClick={() => handleScrollToSection("gallery")}
               className="relative group overflow-hidden px-8 py-3 rounded font-heading font-extrabold tracking-widest text-sm text-cyber-bg bg-cyber-cyan shadow-[0_0_20px_rgba(0,245,255,0.4)] hover:shadow-[0_0_30px_rgba(0,245,255,0.7)] transition-all duration-300 uppercase cursor-pointer"
             >
               <span className="absolute inset-0 w-full h-full bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></span>
               <span className="flex items-center justify-center gap-2">
-                Explore Now <ArrowUpRight className="w-4 h-4" />
+                Enter Command Center <ArrowUpRight className="w-4 h-4" />
               </span>
             </button>
 
             <button
-              onClick={() => handleScrollToSection("contact")}
+              onClick={() => handleScrollToSection("timeline")}
               className="relative px-8 py-3 rounded font-heading font-extrabold tracking-widest text-sm text-white border border-cyber-purple/50 bg-cyber-purple/10 hover:bg-cyber-purple/35 transition-all duration-300 uppercase cursor-pointer flex items-center justify-center gap-2 hover:shadow-[0_0_20px_rgba(123,47,247,0.4)]"
             >
               <Shield className="w-4 h-4 text-cyber-purple" />
-              Join Mission
+              Activate Neural Core
             </button>
           </motion.div>
         </div>
 
-        {/* Right Cyborg/Illustration Area */}
-        <div className="lg:col-span-5 relative flex justify-center items-center h-[400px] lg:h-[600px] z-15">
+        {/* Right Cyborg/Illustration Area & Floating Live System Panel */}
+        <div className="lg:col-span-5 relative flex justify-center items-center h-[450px] lg:h-[600px] z-15">
+          
+          {/* FLOATING LIVE SYSTEM PANEL */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8, x: -30 }}
+            animate={{ opacity: 1, scale: 1, x: 0 }}
+            transition={{ delay: 0.8, type: "spring", stiffness: 120 }}
+            className="absolute left-[-20px] top-[15px] lg:left-[-60px] lg:top-[60px] z-30 glass-panel p-4 rounded border border-cyber-cyan/35 w-[200px] font-mono text-[10px] space-y-2 shadow-[0_10px_25px_rgba(0,0,0,0.5)] select-none text-left"
+          >
+            <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-cyber-cyan"></div>
+            <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-cyber-cyan"></div>
+
+            <div className="flex items-center gap-1.5 text-cyber-cyan font-bold tracking-wider uppercase border-b border-cyber-cyan/15 pb-1">
+              <Activity className="w-3.5 h-3.5 animate-pulse" />
+              <span>SYSTEM STATUS</span>
+            </div>
+
+            <div className="flex justify-between items-center text-gray-400">
+              <span>Neural Core:</span>
+              <span className="text-cyber-cyan font-bold text-glow-cyan">{metrics.core}</span>
+            </div>
+            <div className="flex justify-between items-center text-gray-400">
+              <span>Quantum Link:</span>
+              <span className="text-cyber-green font-bold text-glow-green">{metrics.link}</span>
+            </div>
+            <div className="flex justify-between items-center text-gray-400">
+              <span>Energy level:</span>
+              <span className="text-white font-bold">{metrics.energy}%</span>
+            </div>
+            <div className="flex justify-between items-center text-gray-400">
+              <span>Threat Level:</span>
+              <span className="text-white font-bold">{metrics.threat}</span>
+            </div>
+            <div className="flex justify-between items-center text-gray-400">
+              <span>CPU Load:</span>
+              <span className="text-cyber-cyan font-bold">{metrics.cpu}%</span>
+            </div>
+            <div className="flex justify-between items-center text-gray-400">
+              <span>Core Temp:</span>
+              <span className="text-white font-bold">{metrics.temp}°C</span>
+            </div>
+          </motion.div>
+
           {/* Neon Ring Backgrounds */}
           <motion.div
             style={{ x: bgGlowX, y: bgGlowY }}
@@ -175,7 +257,6 @@ export default function Hero() {
               transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
               className="absolute w-[90%] h-[90%] rounded-full border border-dashed border-cyber-purple/20 flex items-center justify-center"
             >
-              {/* Pulsing glow point */}
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-cyber-cyan shadow-[0_0_10px_#00F5FF]"></div>
               <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-cyber-purple shadow-[0_0_8px_#7B2FF7]"></div>
             </motion.div>
@@ -198,13 +279,13 @@ export default function Hero() {
           {/* Interactive Floating Cyborg Image */}
           <motion.div
             style={{ x: robotX, y: robotY }}
-            animate={{ y: [0, -15, 0] }}
+            animate={{ y: [0, -12, 0] }}
             transition={{
               duration: 6,
               repeat: Infinity,
               ease: "easeInOut"
             }}
-            className="relative w-[320px] lg:w-[480px] z-10 flex justify-center items-center drop-shadow-[0_15px_35px_rgba(0,245,255,0.15)] pointer-events-none"
+            className="relative w-[300px] lg:w-[460px] z-10 flex justify-center items-center drop-shadow-[0_15px_35px_rgba(0,245,255,0.15)] pointer-events-none"
           >
             {/* Main Image */}
             <img
@@ -226,7 +307,7 @@ export default function Hero() {
 
               {/* Futuristic text indicator */}
               <div className="absolute -top-6 left-4 font-mono text-[9px] text-cyber-cyan/60 tracking-widest uppercase">
-                TARGET_LOCK::SYSTEM_ACTIVE
+                DIAGNOSTICS::SYSTEM_ACTIVE
               </div>
               <div className="absolute -bottom-6 right-4 font-mono text-[9px] text-cyber-purple/60 tracking-widest uppercase">
                 NEURAL_LINK::98.76%

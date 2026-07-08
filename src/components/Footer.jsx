@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Cpu, MessageSquare } from "lucide-react";
 
 // Inline brand SVGs for reliability and style consistency
@@ -24,6 +24,8 @@ const LinkedinIcon = (props) => (
 );
 
 export default function Footer() {
+  const footerRef = useRef(null);
+
   const handleScrollToTop = (e) => {
     e.preventDefault();
     window.scrollTo({
@@ -32,8 +34,49 @@ export default function Footer() {
     });
   };
 
+  useEffect(() => {
+    const footer = footerRef.current;
+    if (!footer) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          document.body.classList.add("footer-active");
+        } else {
+          document.body.classList.remove("footer-active");
+        }
+      },
+      { threshold: 0.08 }
+    );
+
+    observer.observe(footer);
+
+    return () => {
+      observer.disconnect();
+      document.body.classList.remove("footer-active");
+    };
+  }, []);
+
   return (
-    <footer className="relative bg-cyber-bg/95 border-t border-white/5 pt-16 pb-12 z-10 px-6">
+    <footer 
+      ref={footerRef}
+      className="relative bg-cyber-bg/95 border-t border-white/5 pt-20 pb-12 z-10 px-6 select-none"
+    >
+      <div className="max-w-7xl mx-auto flex flex-col items-center text-center mb-16 space-y-4">
+        {/* Classified Connection Terminated Screen */}
+        <div className="font-heading text-xl md:text-3xl font-black text-cyber-cyan text-glow-cyan uppercase tracking-widest">
+          TRANSMISSION COMPLETE
+        </div>
+        <div className="font-mono text-xs text-gray-500 animate-pulse uppercase">
+          &gt; Connection terminated... Status: SECURE_DISCONNECT_COMPLETE
+        </div>
+        <div className="font-body text-sm text-gray-400 italic font-semibold uppercase tracking-widest pt-2">
+          See you in the future.
+        </div>
+        
+        <div className="w-[100px] h-[1px] bg-cyber-cyan/30 mx-auto mt-4" />
+      </div>
+
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
         {/* Brand Column */}
         <div className="md:col-span-2 text-left space-y-4">
@@ -77,7 +120,6 @@ export default function Footer() {
           </div>
         </div>
 
-
         {/* Resources Column */}
         <div className="text-left space-y-4">
           <h4 className="font-heading text-xs font-bold tracking-widest text-white uppercase">
@@ -118,7 +160,7 @@ export default function Footer() {
         </div>
         
         <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-cyber-green animate-pulse shadow-[0_0_6px_#00FF9C]"></span>
+          <span className="w-2.5 h-2.5 rounded-full bg-cyber-green animate-pulse shadow-[0_0_6px_#00FF9C]"></span>
           <span>POWERED BY CYBORG X CORE AI</span>
         </div>
       </div>

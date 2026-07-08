@@ -4,9 +4,9 @@
 
 @theme {
   --color-cyber-bg: #050816;
-  --color-cyber-cyan: #00F5FF;
-  --color-cyber-purple: #7B2FF7;
-  --color-cyber-green: #00FF9C;
+  --color-cyber-cyan: var(--cyber-cyan, #00F5FF);
+  --color-cyber-purple: var(--cyber-purple, #7B2FF7);
+  --color-cyber-green: var(--cyber-green, #00FF9C);
   --color-cyber-dark: #0a0d24;
   --color-cyber-gray: #0f132e;
   
@@ -54,6 +54,20 @@ body {
   min-height: 100vh;
 }
 
+/* CSS Variables for Dynamic Naming overrides and Dev Mode Theme swaps */
+:root {
+  --cyber-cyan: #00F5FF;
+  --cyber-purple: #7B2FF7;
+  --cyber-green: #00FF9C;
+}
+
+/* Developer override hacker theme */
+body.dev-mode-active {
+  --cyber-cyan: #00FF9C;
+  --cyber-purple: #00FF9C;
+  --cyber-green: #00FF9C;
+}
+
 /* Hide default cursor on desktop for custom glowing cursor */
 @media (min-width: 1024px) {
   .custom-cursor-active, 
@@ -78,8 +92,8 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #7B2FF7;
-  box-shadow: 0 0 10px #00F5FF;
+  background: var(--cyber-purple);
+  box-shadow: 0 0 10px var(--cyber-cyan);
 }
 
 /* Glassmorphism Styles */
@@ -164,3 +178,76 @@ body {
   background-size: 100% 2px, 3px 100%;
   pointer-events: none;
 }
+
+/* CRT Screen Scanlines (Global Overlay) */
+.crt-scanlines {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.15) 50%
+  );
+  background-size: 100% 4px;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+/* CRT Screen Flicker */
+@keyframes crt-flicker {
+  0% { opacity: 0.975; }
+  50% { opacity: 1; }
+  100% { opacity: 0.99; }
+}
+
+.crt-flicker-overlay {
+  position: fixed;
+  inset: 0;
+  background: transparent;
+  z-index: 9997;
+  pointer-events: none;
+  animation: crt-flicker 0.15s infinite;
+}
+
+/* Digital Noise Overlay */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
+  z-index: 9999;
+  pointer-events: none;
+}
+
+/* Light scan line for technology cards */
+@keyframes scan-animation {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(200%); }
+}
+
+.card-scan-line {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 20%;
+  background: linear-gradient(to bottom, transparent, rgba(0, 245, 255, 0.15), transparent);
+  pointer-events: none;
+  animation: scan-animation 3s linear infinite;
+}
+
+/* Segmented Blocks Animation for stats */
+@keyframes block-loader {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+.animate-block-width {
+  animation: block-loader 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Fade page when footer is visible */
+main {
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+}
+body.footer-active main {
+  opacity: 0.55;
+  filter: blur(0.5px);
+}
+
